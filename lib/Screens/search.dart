@@ -24,28 +24,34 @@ class _SearchState extends State<Search> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
-                  width: MediaQuery.of(context).size.width * 0.95,
+                  padding: EdgeInsets.symmetric(horizontal: 8),
                   child: searchBar()),
-              SizedBox(
-                height: 10,
-              ),
               Expanded(
                 child: Consumer<SearchProvider>(
-                  builder: (context, value, child) => value.results == null
-                      ? Text(
-                          "Type in and Search",
-                          style: TextStyle(fontSize: 20, color: Colors.grey),
+                  builder: (context, value, child) => value.searching
+                      ? Column(
+                          children: [
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.3,
+                            ),
+                            Container(
+                                height: 50,
+                                width: 50,
+                                child: CircularProgressIndicator()),
+                          ],
                         )
-                      : value.searching
+                      : value.results == null
                           ? Column(
                               children: [
                                 SizedBox(
-                                  height: 100,
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.3,
                                 ),
-                                Container(
-                                    height: 50,
-                                    width: 50,
-                                    child: CircularProgressIndicator()),
+                                Text(
+                                  "Type in and Search",
+                                  style: TextStyle(
+                                      fontSize: 20, color: Colors.grey),
+                                ),
                               ],
                             )
                           : value.results.isEmpty
@@ -57,7 +63,9 @@ class _SearchState extends State<Search> {
                               : ListView.builder(
                                   itemCount: value.results.length,
                                   addAutomaticKeepAlives: true,
-                                  padding: EdgeInsets.all(8),
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 8,
+                                  ),
                                   itemBuilder: (context, index) {
                                     return FilmCard(
                                       data: value.results[index],
@@ -83,7 +91,8 @@ class _SearchState extends State<Search> {
             contentPadding: EdgeInsets.all(15),
             hintText: "Search",
             border: OutlineInputBorder()),
-        textInputAction: TextInputAction.search,
+        keyboardType: TextInputType.text,
+        textInputAction: TextInputAction.done,
         onEditingComplete: () {
           searchProvider.search(searchString: _searchController.text);
         },

@@ -18,7 +18,7 @@ class _FilmCardState extends State<FilmCard> {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Container(
-        height: 160,
+        height: 150,
         child: Stack(
           alignment: Alignment.bottomLeft,
           children: [
@@ -28,18 +28,19 @@ class _FilmCardState extends State<FilmCard> {
                   borderRadius: BorderRadius.circular(8),
                   color: Colors.white,
                   boxShadow: [
-                    BoxShadow(blurRadius: 2, color: Colors.grey[300])
+                    BoxShadow(blurRadius: 8, color: Colors.grey[300])
                   ]),
               child: Row(
                 children: [
                   Container(
-                    width: 140,
+                    width: 125,
                   ),
                   Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 5, horizontal: 8),
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
@@ -47,17 +48,25 @@ class _FilmCardState extends State<FilmCard> {
                             overflow: TextOverflow.ellipsis,
                             maxLines: 2,
                             style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.w600),
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                                shadows: [Shadow(blurRadius: 1)]),
                           ),
+                          // SizedBox(
+                          //   height: 8,
+                          // ),
                           widget.data['genre'] != null
                               ? Text(
                                   widget.data['genre'].toString().split(',')[0],
                                   style: TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 14,
                                       color: Colors.grey,
                                       fontWeight: FontWeight.w400),
                                 )
                               : Container(),
+                          // SizedBox(
+                          //   height: 8,
+                          // ),
                           Wrap(
                             direction: Axis.horizontal,
                             crossAxisAlignment: WrapCrossAlignment.center,
@@ -71,9 +80,9 @@ class _FilmCardState extends State<FilmCard> {
                                           fontWeight: FontWeight.w700),
                                     )
                                   : Container(),
-                              SizedBox(
-                                width: 10,
-                              ),
+                              // SizedBox(
+                              //   width: 8,
+                              // ),
                               RatingBar(
                                 onRatingUpdate: (value) {},
                                 initialRating:
@@ -83,6 +92,7 @@ class _FilmCardState extends State<FilmCard> {
                                 ignoreGestures: true,
                                 itemCount: 5,
                                 glow: true,
+                                glowRadius: 3,
                                 direction: Axis.horizontal,
                                 ratingWidget: RatingWidget(
                                     full: Icon(
@@ -125,24 +135,31 @@ class _FilmCardState extends State<FilmCard> {
                 ],
               ),
             ),
-            Container(
-                width: 140,
-                child: widget.data['Poster'] == 'N/A'
-                    ? Icon(
-                        Icons.movie,
-                        size: 100,
-                        color: Colors.blue,
-                      )
-                    : Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(8),
-                          child: Image.network(
-                            widget.data['Poster'],
-                            fit: BoxFit.cover,
-                          ),
+            widget.data['Poster'] == 'N/A'
+                ? Icon(
+                    Icons.movie,
+                    size: 100,
+                    color: Colors.blue,
+                  )
+                : Padding(
+                    padding: const EdgeInsets.only(left: 15, bottom: 15),
+                    child: Container(
+                      width: 100,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(4),
+                          color: Colors.white,
+                          boxShadow: [
+                            BoxShadow(blurRadius: 3, color: Colors.grey)
+                          ]),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(4),
+                        child: Image.network(
+                          widget.data['Poster'],
+                          fit: BoxFit.cover,
                         ),
-                      )),
+                      ),
+                    ),
+                  ),
           ],
         ),
       ),

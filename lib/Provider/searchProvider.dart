@@ -10,10 +10,9 @@ class SearchProvider extends ChangeNotifier {
   search({String searchString}) async {
     searching = true;
     notifyListeners();
-    print(searchString);
     if (searchString.isNotEmpty) {
       Response response = await get(
-        'http://www.omdbapi.com/?s=$searchString&apikey=de9c0d08',
+        'http://www.omdbapi.com/?s=${searchString.trim()}&apikey=de9c0d08',
       );
       if (response.statusCode == 200) {
         responseBody = jsonDecode(response.body);
