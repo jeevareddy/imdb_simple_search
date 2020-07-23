@@ -23,9 +23,10 @@ class _SearchState extends State<Search> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Container(
-                  padding: EdgeInsets.symmetric(horizontal: 8),
-                  child: searchBar()),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 5),
+                child: searchBar(),
+              ),
               Expanded(
                 child: Consumer<SearchProvider>(
                   builder: (context, value, child) => value.searching
@@ -35,8 +36,8 @@ class _SearchState extends State<Search> {
                               height: MediaQuery.of(context).size.height * 0.3,
                             ),
                             Container(
-                                height: 50,
-                                width: 50,
+                                height: 40,
+                                width: 40,
                                 child: CircularProgressIndicator()),
                           ],
                         )
@@ -55,17 +56,26 @@ class _SearchState extends State<Search> {
                               ],
                             )
                           : value.results.isEmpty
-                              ? Text(
-                                  "No Results",
-                                  style: TextStyle(
-                                      fontSize: 20, color: Colors.grey),
+                              ? Column(
+                                  children: [
+                                    SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.3,
+                                    ),
+                                    Text(
+                                      "No Results \nTry with broader Search",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontSize: 20, color: Colors.grey),
+                                    ),
+                                  ],
                                 )
                               : ListView.builder(
                                   itemCount: value.results.length,
                                   addAutomaticKeepAlives: true,
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: 8,
-                                  ),
+                                  padding:
+                                      const EdgeInsets.symmetric(horizontal: 5),
                                   itemBuilder: (context, index) {
                                     return FilmCard(
                                       data: value.results[index],
@@ -87,6 +97,7 @@ class _SearchState extends State<Search> {
     return Container(
       child: TextField(
         controller: _searchController,
+        style: TextStyle(fontSize: 18),
         decoration: InputDecoration(
             contentPadding: EdgeInsets.all(15),
             hintText: "Search",

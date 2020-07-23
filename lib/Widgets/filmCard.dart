@@ -18,7 +18,7 @@ class _FilmCardState extends State<FilmCard> {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Container(
-        height: 150,
+        height: 145,
         child: Stack(
           alignment: Alignment.bottomLeft,
           children: [
@@ -40,94 +40,108 @@ class _FilmCardState extends State<FilmCard> {
                       padding: const EdgeInsets.symmetric(
                           vertical: 5, horizontal: 8),
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        mainAxisAlignment: MainAxisAlignment.end,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            widget.data['Title'].toString(),
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 2,
-                            style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
-                                shadows: [Shadow(blurRadius: 1)]),
-                          ),
-                          // SizedBox(
-                          //   height: 8,
-                          // ),
-                          widget.data['genre'] != null
-                              ? Text(
-                                  widget.data['genre'].toString().split(',')[0],
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      color: Colors.grey,
-                                      fontWeight: FontWeight.w400),
-                                )
-                              : Container(),
-                          // SizedBox(
-                          //   height: 8,
-                          // ),
-                          Wrap(
-                            direction: Axis.horizontal,
-                            crossAxisAlignment: WrapCrossAlignment.center,
+                          Column(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              widget.data['rating'] != null
+                              Text(
+                                widget.data['Title'].toString(),
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 2,
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w600,
+                                    shadows: [Shadow(blurRadius: 1)]),
+                              ),
+                              SizedBox(
+                                height: 8,
+                              ),
+                              widget.data['genre'] != null
                                   ? Text(
-                                      widget.data['rating'].toString(),
+                                      widget.data['genre']
+                                          .toString()
+                                          .split(',')[0],
                                       style: TextStyle(
-                                          fontSize: 22,
-                                          color: Colors.blue[600],
-                                          fontWeight: FontWeight.w700),
+                                          fontSize: 14,
+                                          color: Colors.grey,
+                                          fontWeight: FontWeight.w400),
                                     )
                                   : Container(),
-                              // SizedBox(
-                              //   width: 8,
-                              // ),
-                              RatingBar(
-                                onRatingUpdate: (value) {},
-                                initialRating:
-                                    double.parse(widget.data['rating']) / 2,
-                                itemSize: 20,
-                                allowHalfRating: true,
-                                ignoreGestures: true,
-                                itemCount: 5,
-                                glow: true,
-                                glowRadius: 3,
+                              SizedBox(
+                                height: 8,
+                              ),
+                              Wrap(
                                 direction: Axis.horizontal,
-                                ratingWidget: RatingWidget(
-                                    full: Icon(
-                                      Icons.star,
-                                      color: Colors.orange,
-                                    ),
-                                    half: ShaderMask(
-                                      blendMode: BlendMode.srcIn,
-                                      shaderCallback: (bounds) => SweepGradient(
-                                          center: Alignment.bottomCenter,
-                                          startAngle: (269 * pi / 180),
-                                          endAngle: (270 * pi / 180),
-                                          stops: [
-                                            0,
-                                            0.5
-                                          ],
-                                          colors: [
-                                            Colors.orange,
-                                            Colors.grey
-                                          ]).createShader(bounds),
-                                      child: Icon(
-                                        Icons.star,
-                                        color: Colors.grey,
-                                      ),
-                                    ),
-                                    empty: Icon(
-                                      Icons.star,
-                                      color: Colors.grey,
-                                    )),
-                                unratedColor: Colors.grey,
-                                glowColor: Colors.orange,
-                                maxRating: 5,
-                              )
+                                crossAxisAlignment: WrapCrossAlignment.center,
+                                children: [
+                                  widget.data['rating'] != null
+                                      ? Text(
+                                          widget.data['rating'].toString(),
+                                          style: TextStyle(
+                                              fontSize: 22,
+                                              color: Colors.blue[600],
+                                              fontWeight: FontWeight.w700),
+                                        )
+                                      : Container(),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  RatingBar(
+                                    onRatingUpdate: (value) {},
+                                    initialRating:
+                                        double.parse(widget.data['rating']) / 2,
+                                    itemSize: 20,
+                                    allowHalfRating: true,
+                                    ignoreGestures: true,
+                                    itemCount: 5,
+                                    glow: true,
+                                    glowRadius: 3,
+                                    direction: Axis.horizontal,
+                                    ratingWidget: RatingWidget(
+                                        full: Icon(
+                                          Icons.star,
+                                          color: Colors.orange,
+                                        ),
+                                        half: ShaderMask(
+                                          blendMode: BlendMode.srcIn,
+                                          shaderCallback: (bounds) =>
+                                              SweepGradient(
+                                                  center:
+                                                      Alignment.bottomCenter,
+                                                  startAngle: (269 * pi / 180),
+                                                  endAngle: (270 * pi / 180),
+                                                  stops: [
+                                                0,
+                                                0.5
+                                              ],
+                                                  colors: [
+                                                Colors.orange,
+                                                Colors.grey
+                                              ]).createShader(bounds),
+                                          child: Icon(
+                                            Icons.star,
+                                            color: Colors.grey,
+                                          ),
+                                        ),
+                                        empty: Icon(
+                                          Icons.star,
+                                          color: Colors.grey,
+                                        )),
+                                    unratedColor: Colors.grey,
+                                    glowColor: Colors.orange,
+                                    maxRating: 5,
+                                  )
+                                ],
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
                             ],
-                          )
+                          ),
                         ],
                       ),
                     ),
